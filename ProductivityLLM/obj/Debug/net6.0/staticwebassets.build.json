@@ -1,0 +1,11 @@
+{
+  "Version": 1,
+  "Hash": "kwLKsh9ZLl1dW083tgDtZqZ/Lt6/ekLzJK0v5elC1CM=",
+  "Source": "ProductivityLLM",
+  "BasePath": "_content/ProductivityLLM",
+  "Mode": "Default",
+  "ManifestType": "Build",
+  "ReferencedProjectsConfiguration": [],
+  "DiscoveryPatterns": [],
+  "Assets": []
+}
