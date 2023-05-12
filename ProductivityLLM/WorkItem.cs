@@ -18,5 +18,8 @@ namespace ProductivityLLM
 
         [JsonProperty(PropertyName = "Assigned To", NullValueHandling = NullValueHandling.Ignore)]
         public string? assignedTo { get; set; }
+
+        [JsonProperty(PropertyName = "Tags", NullValueHandling = NullValueHandling.Ignore)]
+        public string? tags { get; set; }
     }
 }

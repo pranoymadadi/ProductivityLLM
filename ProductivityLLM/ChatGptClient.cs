@@ -27,7 +27,8 @@ public class ChatGPTClient
         {
             model = "text-davinci-edit-001",
             input = prompt,
-            instruction = "Fill the missing assignedTo with an email already mentioned in the input after analysing the data where assignedTo is not empty to understand who is most suited for each task based on the assignedTo, input, description field."
+            temperature = 0.2,
+            instruction = "Fill the empty assignedTo with an email already mentioned in the input after analysing the data where assignedTo is not empty to understand who is most suited for each task based on the assignedTo, input, description, tags field."
         });
 
         request.Content = new StringContent(requestBody, System.Text.Encoding.UTF8, "application/json");
@@ -39,6 +40,11 @@ public class ChatGPTClient
             var responseBody = await response.Content.ReadAsStringAsync();
             var responseJson = JsonSerializer.Deserialize<ChatGPTResponse>(responseBody);
             return responseJson.choices[0].text;
+        }
+
+        if (response.StatusCode == System.Net.HttpStatusCode.BadRequest)
+        {
+            throw new BadHttpRequestException("Bad request", (int)response.StatusCode);
         }
 
         return null;
