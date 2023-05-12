@@ -21,11 +21,7 @@ namespace ProductivityLLM.Controllers
         [HttpGet(Name = "WeatherForecast")]
         public async Task<string> Get()
         {
-
-            var client = new ChatGPTClient("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");
-            var response = await client.GetResponse("Hello, ChatGPT!");
-
-            return response;
+            return "aaaaa";
         }
     }
 }

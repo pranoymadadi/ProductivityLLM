@@ -13,10 +13,10 @@ namespace ProductivityLLM
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
         public string? description { get; set; }
 
-        [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
+        [JsonProperty(PropertyName = "Resolved By", NullValueHandling = NullValueHandling.Ignore)]
         public string? resolvedBy { get; set; }
 
-        [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
+        [JsonProperty(PropertyName = "Assigned To", NullValueHandling = NullValueHandling.Ignore)]
         public string? assignedTo { get; set; }
     }
 }

@@ -1,4 +1,5 @@
-﻿using Newtonsoft.Json;
+﻿using HtmlAgilityPack;
+using Newtonsoft.Json;
 using static System.Net.Mime.MediaTypeNames;
 
 namespace ProductivityLLM
@@ -15,6 +16,24 @@ namespace ProductivityLLM
                 while ((line = reader.ReadLine()) != null)
                 {
                     WorkItem workItem = JsonConvert.DeserializeObject<WorkItem>(line);
+                    var doc = new HtmlDocument();
+                    doc.LoadHtml(workItem.description);
+                    var text = doc.DocumentNode.InnerText;
+                    workItem.description = text;
+                    int startIndex = workItem.assignedTo.IndexOf("<");
+                    int endIndex = workItem.assignedTo.IndexOf(">");
+                    if (startIndex >= 0 && endIndex >= 0) 
+                    {
+                        workItem.assignedTo = workItem.assignedTo.Substring(startIndex + 1, endIndex - startIndex - 1);
+                    }
+                    int startIndexResolvedBy = workItem.resolvedBy.IndexOf("<");
+                    int endIndexResolvedBy = workItem.resolvedBy.IndexOf(">");
+                    if (startIndexResolvedBy >= 0 && endIndexResolvedBy >= 0)
+                    {
+                        workItem.resolvedBy = workItem.resolvedBy.Substring(startIndexResolvedBy + 1, endIndexResolvedBy - startIndexResolvedBy - 1 );
+                    }
+
+                    workItem.assignedTo = workItem.resolvedBy;
                     workItems.TryAdd(workItem.id, workItem);
                     Console.WriteLine(line);
                 }
@@ -27,7 +46,7 @@ namespace ProductivityLLM
             using (StreamReader reader = new StreamReader(filePath))
             {
                 string line;
-                var client = new ChatGPTClient("Token1");
+                var client = new ChatGPTClient("");
 
                 while ((line = reader.ReadLine()) != null)
                 {

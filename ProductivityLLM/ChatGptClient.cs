@@ -27,7 +27,7 @@ public class ChatGPTClient
         {
             model = "text-davinci-edit-001",
             input = prompt,
-            instruction = "Fill the missing assignedTo with the right person from the list after Analysing the data where assignedTo is not empty to understand who is most suited for each task based on the assignedTo field. "
+            instruction = "Fill the missing assignedTo with an email already mentioned in the input after analysing the data where assignedTo is not empty to understand who is most suited for each task based on the assignedTo, input, description field."
         });
 
         request.Content = new StringContent(requestBody, System.Text.Encoding.UTF8, "application/json");
